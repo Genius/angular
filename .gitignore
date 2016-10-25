@@ -6,7 +6,6 @@ pubspec.lock
 .pub
 .packages
 
-/dist/
 .buildlog
 node_modules
 bower_components

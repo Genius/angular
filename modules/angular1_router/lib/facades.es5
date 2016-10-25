@@ -24,6 +24,10 @@ function isType (x) {
   return typeof x === 'function';
 }
 
+function isFunction (x) {
+  return typeof x === 'function';
+}
+
 function isStringMap(obj) {
   return typeof obj === 'object' && obj !== null;
 }
@@ -65,6 +69,12 @@ var RegExpWrapper = {
   matcher: function (regExp, input) {
     regExp.lastIndex = 0;
     return { re: regExp, input: input };
+  }
+};
+
+var RegExpMatcherWrapper = {
+  next: function(matcher) {
+    return matcher.re.exec(matcher.input);
   }
 };
 
