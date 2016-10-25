@@ -1,10 +1,9 @@
 {
-  "name": "angular-srcs",
-  "version": "2.0.0-beta.14",
-  "branchPattern": "2.0.*",
-  "description": "Angular 2 - a web framework for modern web apps",
-  "homepage": "https://github.com/angular/angular",
-  "bugs": "https://github.com/angular/angular/issues",
+  "name": "angular-1-router",
+  "version": "0.2.1",
+  "description": "Extracted Angular 1 Router",
+  "homepage": "https://github.com/Genius/angular",
+  "bugs": "https://github.com/Genius/angular/issues",
   "contributors": [
     "Alex Eagle <alexeagle@google.com>",
     "Chirayu Krishnappa <chirayu@google.com>",
@@ -19,17 +18,15 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">= 5.4.1 < 6"
+    "node": ">= 5.4.1 < 6.3.1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular.git"
+    "url": "https://github.com/Genius/angular.git"
   },
   "scripts": {
-    "preinstall": "node tools/analytics/build-analytics start install npm3-install && node tools/analytics/build-analytics start install npm-preinstall && node tools/npm/check-node-modules && node tools/analytics/build-analytics success install npm-preinstall && node tools/analytics/build-analytics start install npm-install-net",
-    "postinstall": "node tools/analytics/build-analytics success install npm-install-net && node tools/analytics/build-analytics start install npm-postinstall && node tools/npm/copy-npm-shrinkwrap && node tools/chromedriverpatch.js && webdriver-manager update && bower install && gulp pubget.dart && tsd reinstall --overwrite --clean --config modules/angular2/tsd.json && tsd reinstall --overwrite --clean --config tools/tsd.json && tsd reinstall --overwrite --config modules/angular1_router/tsd.json && node tools/analytics/build-analytics success install npm-postinstall && node tools/analytics/build-analytics success install npm3-install",
-    "build": "node --max-old-space-size=2048 ./node_modules/.bin/gulp build.js",
-    "test": "gulp test.all.js && gulp test.all.dart"
+    "build": "gulp buildRouter.dev",
+    "test": "gulp test.unit.router"
   },
   "dependencies": {
     "es6-shim": "^0.35.0",
