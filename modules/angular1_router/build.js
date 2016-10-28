@@ -42,7 +42,7 @@ function main(modulesDirectory) {
 
   // we have to use a function callback for replace to prevent it from interpreting `$`
   // as a replacement command character
-  var out = moduleTemplate.replace('//{{FACADES}}', function() { return facades; })
+  var out = transform(moduleTemplate).replace('//{{FACADES}}', function() { return facades; })
                 .replace('//{{SHARED_CODE}}', function() { return sharedCode; });
   return PRELUDE + transform(directives) + out + POSTLUDE;
 }
