@@ -53,12 +53,13 @@ export class Url {
 export class RootUrl extends Url {
   constructor(
       path: string, child: Url = null, auxiliary: Url[] = CONST_EXPR([]),
-      params: {[key: string]: any} = null) {
+      params: {[key: string]: any} = null, hash: string) {
     super(path, child, auxiliary, params);
+    this.hash = hash;
   }
 
   toString(): string {
-    return this.path + this._auxToString() + this._childString() + this._queryParamsToString();
+    return this.path + this._auxToString() + this._childString() + this._queryParamsToString() + this._hashToString();
   }
 
   segmentToString(): string { return this.path + this._queryParamsToString(); }
@@ -69,6 +70,14 @@ export class RootUrl extends Url {
     }
 
     return '?' + serializeParams(this.params);
+  }
+
+  private _hashToString(): string {
+    if (isBlank(this.hash)) {
+      return '';
+    }
+
+    return '#' + encodeURI(this.hash);
   }
 }
 
@@ -136,7 +145,13 @@ export class UrlParser {
     if (this.peekStartsWith('?')) {
       queryParams = this.parseQueryParams();
     }
-    return new RootUrl(path, child, aux, queryParams);
+    var hash: string = null;
+    if (this.peekStartsWith('#')) {
+      this.capture('#');
+      hash = decodeURI(this._remaining);
+      this.capture(this._remaining);
+    }
+    return new RootUrl(path, child, aux, queryParams, hash);
   }
 
   // segment + (matrix params) + (aux segments)
